@@ -7,3 +7,5 @@
 1/2/2025: object_detection_applications_aio - object tracking with YOLO
 
 2/2/2025: object_detection_applications_aio - object counting with YOLO
+
+18+19+20/6/2025: Attention in transformer, Quantization in depth
