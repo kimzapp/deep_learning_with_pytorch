@@ -3,3 +3,4 @@ test_detection
 yolo_lightning
 yolo
 *.onnx
+__pycache__
