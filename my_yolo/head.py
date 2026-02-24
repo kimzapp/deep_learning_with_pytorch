@@ -33,7 +33,7 @@ class v8Head(nn.Module):
         b, c, h, w = x1.shape
         locs = [l(x).reshape(b, 4 * self.reg_max, -1) for l, x in zip(self.localize, [x1, x2, x3])]
         confs = [c(x).reshape(b, self.num_classes, -1) for c, x in zip(self.classify, [x1, x2, x3])]
-        return torch.cat(locs, dim=2), torch.cat(confs, dim=2)
+        return torch.cat(locs, dim=2), torch.cat(confs, dim=2), [x1, x2, x3]
 
 
 if __name__ == "__main__":
@@ -41,6 +41,6 @@ if __name__ == "__main__":
     x1 = torch.randn(1, 256, 80, 80)  # Example input from neck
     x2 = torch.randn(1, 512, 40, 40)  # Example input from neck
     x3 = torch.randn(1, 512, 20, 20)  # Example input from neck
-    locs, confs = model(x1, x2, x3)
-    print(locs.shape)
-    print(confs.shape)
+    locs, confs, _ = model(x1, x2, x3)
+    print(locs.shape)  # Should be (1, 4*reg_max, num_anchors)
+    print(confs.shape)  # Should be (1, num_classes,

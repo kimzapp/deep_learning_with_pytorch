@@ -15,7 +15,12 @@ class YOLOv8(nn.Module):
     def forward(self, x):
         p3, p4, p5 = self.backbone(x)
         x1, x2, x3 = self.neck(p3, p4, p5)
-        return self.head(x1, x2, x3)
+        locs, confs, feats = self.head(x1, x2, x3)
+        return {
+            'boxes': locs,
+            'confs': confs,
+            'feats': feats
+        }
     
     def predict(self, x):
         self.eval()
@@ -35,3 +40,10 @@ class YOLOv8(nn.Module):
                 nn.init.normal_(m.weight, 0, 0.01)
                 nn.init.constant_(m.bias, 0)
     
+
+if __name__ == "__main__":
+    model = YOLOv8() # yolov8 l by default
+    x = torch.randn(1, 3, 640, 640)  # Example input
+    result = model(x)
+    print("Boxes shape:", result['boxes'].shape)
+    print("Confs shape:", result['confs'].shape)
