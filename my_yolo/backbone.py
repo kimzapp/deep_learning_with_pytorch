@@ -6,7 +6,8 @@ import math
 
 
 class Backbone(nn.Module):
-    def __init__(self, d=1.0, w=1.0, r=1.0):
+    """Base class for backbone networks."""
+    def __init__(self):
         super().__init__()
         self.p3 = nn.Identity()
         self.p4 = nn.Identity()
